@@ -1,10 +1,34 @@
-<div>
-    <h2>Current Weather</h2>
-    <input [(ngModel)]="city" placeholder="Enter city" />
-    <button (click)="getWeather()">Get Weather</button>
-    <div *ngIf="weather">
-      <h3>{{ weather.name }}</h3>
-      <p>Temperature: {{ weather.main.temp }} °C</p>
-      <p>Weather: {{ weather.weather[0].description }}</p>
+
+<div class="weather-container">
+  
+  <div class="weather-details">
+    <div >
+      <h2>Current Weather</h2>
+      <input [(ngModel)]="city" placeholder="Enter city" />
+      <button (click)="getWeather()">Get Weather</button>
+      <div *ngIf="weather">
+        <h3>{{ weather.name }}</h3>
+        <p>Temperature: {{ weather.main.temp }} °C</p>
+        <p>Weather: {{ weather.weather[0].description }}</p>
+      </div>
+    </div>
+    <div>
+      <h2>Get Current Location</h2>
+      <button (click)="getWeatherCurrentLocation()">Get Location</button>
+      <p *ngIf="latitude && longitude">Latitude: {{ latitude }}</p>
+      <p *ngIf="latitude && longitude">Longitude: {{ longitude }}</p>
+      <p *ngIf="errorMessage" style="color: red;">Error: {{ errorMessage }}</p>
     </div>
   </div>
+  <div class="weather-chart">
+<h1>weather weather-chart</h1>
+<app-fivedayforecast></app-fivedayforecast>
+  </div>
+  
+</div>
+
+
+
+  
+  <!-- <img src="images/dark.png" alt=""> -->
+  <app-errorpopup #errorPopup></app-errorpopup>

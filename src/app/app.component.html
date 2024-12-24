@@ -1,1 +1,12 @@
-<app-currentweather></app-currentweather>
+
+<div [ngClass]="isDarkMode ? 'dark-theme' : 'light-theme'" class="theme-container">
+    <div class="content">
+      <button class="toggle-theme-btn" (click)="toggleTheme()"> Theme change</button>
+      <!-- <h1>Weather App</h1> -->
+      <!-- <app-currentweather></app-currentweather> -->
+       <!-- <app-test></app-test> -->
+        <!-- <app-grid></app-grid> -->
+        <!-- <app-grid1></app-grid1> -->
+        <app-grid2></app-grid2>
+    </div>
+  </div>
