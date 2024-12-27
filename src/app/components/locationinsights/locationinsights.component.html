@@ -1,0 +1,64 @@
+<!-- <div>
+    <h2>Location Insights</h2>
+    <input
+      [(ngModel)]="location"
+      placeholder="Enter a location"
+      type="text"
+    />
+    <button (click)="searchLocation()">Search</button>
+
+    <div *ngIf="geocodingResult">
+      <h3>Geocoding Result</h3>
+      <p><strong>Address:</strong> {{ geocodingResult.formatted }}</p>
+      <p><strong>Latitude:</strong> {{ geocodingResult.geometry.lat }}</p>
+      <p><strong>Longitude:</strong> {{ geocodingResult.geometry.lng }}</p>
+
+      <h3>Nearby Places</h3>
+      <ul>
+        <li *ngFor="let place of nearbyPlaces">
+          <strong>{{ place.name }}</strong> ({{ place.categories[0]?.name || 'Category Unknown' }})
+          - {{ place.distance }} meters away
+        </li>
+      </ul>
+    </div>
+  </div> -->
+
+
+  <div class="container">
+    <!-- <h2>Location Insights</h2> -->
+  
+    <!-- Input Section -->
+    <div class="input-section">
+      <input
+        [(ngModel)]="location"
+        placeholder="Enter a location"
+        type="text"
+        class="input-box"
+      
+      />
+      <button (click)="searchLocation()" class="search-button">Search</button>
+    </div>
+  
+    <!-- Geocoding Result Section -->
+    <!-- <div *ngIf="geocodingResult" class="result-section">
+      <h3>Geocoding Result</h3>
+      <p><strong>Address:</strong> {{ geocodingResult.formatted }}</p>
+      <p><strong>Latitude:</strong> {{ geocodingResult.geometry.lat }}</p>
+      <p><strong>Longitude:</strong> {{ geocodingResult.geometry.lng }}</p>
+    </div> -->
+  
+    <!-- Nearby Places Section -->
+    <div *ngIf="nearbyPlaces.length > 0" class="nearby-places-section">
+      <h3>Nearby Places</h3>
+      <div class="places-grid">
+        <div *ngFor="let place of nearbyPlaces" class="place-card">
+          <h4>{{ place.name }}</h4>
+          <p class="category">
+            {{ place.categories[0]?.name || 'Category Unknown' }}
+          </p>
+          <p class="distance">{{ place.distance }} meters away</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

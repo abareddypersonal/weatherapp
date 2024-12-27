@@ -1,34 +1,41 @@
-
-<div class="weather-container">
-  
-  <div class="weather-details">
-    <div >
-      <h2>Current Weather</h2>
-      <input [(ngModel)]="city" placeholder="Enter city" />
-      <button (click)="getWeather()">Get Weather</button>
-      <div *ngIf="weather">
+<div class="weathercurrent">
+  <div class="currentleft">
+    <div class="currentweathercard">
+      <!-- <h2>Current Weather</h2> -->
+      <div class="searchcity">
+        <input [(ngModel)]="city" placeholder="Enter city" class="input-box"/>
+        <button (click)="getWeather()" class="search-button">Get Weather</button>
+      </div>
+     
+      <div class="temp" *ngIf="weather">
         <h3>{{ weather.name }}</h3>
-        <p>Temperature: {{ weather.main.temp }} °C</p>
-        <p>Weather: {{ weather.weather[0].description }}</p>
+        <div class="tempicon">
+          <img src="images/temp.png" alt="temperature Icon">
+          <div class="temperature"> {{ weather.main.temp }} °C</div>
+        </div> 
+        <div class="weathericon">
+          <img src="images/weather.png" alt="Weather Icon">
+          <div>{{ weather.weather[0].description }}</div>
+        </div>
+        
       </div>
     </div>
-    <div>
+    <!-- <div class="currentlocationcard">
       <h2>Get Current Location</h2>
       <button (click)="getWeatherCurrentLocation()">Get Location</button>
       <p *ngIf="latitude && longitude">Latitude: {{ latitude }}</p>
       <p *ngIf="latitude && longitude">Longitude: {{ longitude }}</p>
-      <p *ngIf="errorMessage" style="color: red;">Error: {{ errorMessage }}</p>
-    </div>
+      <p *ngIf="errorMessage" style="color: red">Error: {{ errorMessage }}</p>
+    </div> -->
   </div>
+<div class="line"></div>
   <div class="weather-chart">
-<h1>weather weather-chart</h1>
-<app-fivedayforecast></app-fivedayforecast>
+    <!-- <h1>weather weather-chart</h1> -->
+    <app-fivedayforecast [city]="selectedCity" *ngIf="showForecastComponent"></app-fivedayforecast>
   </div>
-  
 </div>
 
+<app-locationinsights></app-locationinsights>
 
-
-  
-  <!-- <img src="images/dark.png" alt=""> -->
-  <app-errorpopup #errorPopup></app-errorpopup>
+<!-- <img src="images/dark.png" alt=""> -->
+<app-errorpopup #errorPopup></app-errorpopup>

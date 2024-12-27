@@ -10,6 +10,8 @@ export class WeatherserviceService {
   private http = inject(HttpClient);
   apiKey = inject(ConfigurationserviceService);
 
+  private apiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
+
   getWeatherReport(city: string) {
     console.log("apikey is : "+this.apiKey.apiKey);
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.apiKey.apiKey}&units=metric`;
@@ -19,6 +21,11 @@ export class WeatherserviceService {
 
   getWeatherByCoordinates(lat: number, lon: number): Observable<any> {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey.apiKey}`;
+    return this.http.get(url);
+  }
+
+  getFiveDayForecast(city: string): Observable<any> {
+    const url = `${this.apiUrl}?q=${city}&appid=${this.apiKey.apiKey}&units=metric`;
     return this.http.get(url);
   }
 }

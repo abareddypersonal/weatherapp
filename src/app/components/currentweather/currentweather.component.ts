@@ -6,12 +6,19 @@ import { WeatherserviceService } from '../../services/weatherservice.service';
 import { ErrorpopupComponent } from '../errorpopup/errorpopup.component';
 import { ErrorserviceService } from '../../services/errorservice.service';
 import { LocationserviceService } from '../../services/locationservice.service';
-import { FivedayforecastComponent } from "../fivedayforecast/fivedayforecast.component";
+import { FivedayforecastComponent } from '../fivedayforecast/fivedayforecast.component';
+import { LocationinsightsComponent } from "../locationinsights/locationinsights.component";
 
 @Component({
   selector: 'app-currentweather',
   standalone: true,
-  imports: [FormsModule, CommonModule, ErrorpopupComponent, FivedayforecastComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ErrorpopupComponent,
+    FivedayforecastComponent,
+    LocationinsightsComponent
+],
   templateUrl: './currentweather.component.html',
   styleUrl: './currentweather.component.scss',
 })
@@ -25,7 +32,10 @@ export class CurrentweatherComponent implements OnInit {
   @ViewChild('errorPopup') errorPopup!: ErrorpopupComponent;
 
   weather: any;
-  city: string = 'London';
+  city: string = 'hyderabad';
+  selectedCity: string = 'hyderabad'; // City passed to the forecast component
+  showForecastComponent = false;
+
   latitude: number | null = null;
   longitude: number | null = null;
 
@@ -39,7 +49,7 @@ export class CurrentweatherComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-  //  this.getLocation();
+    this.getWeather();
     this.erroService.error$.subscribe((message) => {
       this.errorPopup.showError(message);
     });
@@ -49,6 +59,12 @@ export class CurrentweatherComponent implements OnInit {
     this.weatherService
       .getWeatherReport(this.city)
       .subscribe((data: any) => (this.weather = data));
+    this.showForecast();
+  }
+
+  showForecast() {
+    this.selectedCity = this.city; // Update the selected city
+    this.showForecastComponent = true;
   }
 
   getLocation(): void {
@@ -64,19 +80,6 @@ export class CurrentweatherComponent implements OnInit {
       }
     );
   }
-
-  // getFallbackLocation(): Promise<{ latitude: number; longitude: number }> {
-  //   return this.http
-  //     .get<any>('https://ipinfo.io/json?token=your_api_token')
-  //     .toPromise()
-  //     .then((response) => {
-  //       const [latitude, longitude] = response.loc.split(',');
-  //       return {
-  //         latitude: parseFloat(latitude),
-  //         longitude: parseFloat(longitude),
-  //       };
-  //     });
-  // }
 
   getWeatherCurrentLocation() {
     const lat = 37.7749; // Replace with dynamic latitude

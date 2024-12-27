@@ -1,12 +1,18 @@
-
-<div [ngClass]="isDarkMode ? 'dark-theme' : 'light-theme'" class="theme-container">
-    <div class="content">
-      <button class="toggle-theme-btn" (click)="toggleTheme()"> Theme change</button>
-      <!-- <h1>Weather App</h1> -->
-      <!-- <app-currentweather></app-currentweather> -->
-       <!-- <app-test></app-test> -->
-        <!-- <app-grid></app-grid> -->
-        <!-- <app-grid1></app-grid1> -->
-        <app-grid2></app-grid2>
+<div [ngClass]="isDarkMode ? 'dark-theme' : 'light-theme'">
+  <div class="content">
+    <div class="header">
+      <h1 class="weatherName">Weather App</h1>
+      <button (click)="toggleTheme()" aria-label="Toggle Icon">
+        <img [src]="currentIcon" alt="Icon" />
+      </button>
+    </div>
+    <div class="main">
+      <app-currentweather></app-currentweather>
     </div>
   </div>
+</div>
+
+<!-- <app-test></app-test> -->
+<!-- <app-grid></app-grid> -->
+<!-- <app-grid1></app-grid1> -->
+<!-- <app-grid2></app-grid2> -->
