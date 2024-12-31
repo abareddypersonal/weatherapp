@@ -1,24 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WeatherserviceService } from '../../services/weatherservice.service';
-import { ErrorpopupComponent } from '../errorpopup/errorpopup.component';
-import { ErrorserviceService } from '../../services/errorservice.service';
-import { LocationserviceService } from '../../services/locationservice.service';
 import { FivedayforecastComponent } from '../fivedayforecast/fivedayforecast.component';
-import { LocationinsightsComponent } from "../locationinsights/locationinsights.component";
 
 @Component({
   selector: 'app-currentweather',
   standalone: true,
-  imports: [
-    FormsModule,
-    CommonModule,
-    ErrorpopupComponent,
-    FivedayforecastComponent,
-    LocationinsightsComponent
-],
+  imports: [FormsModule, CommonModule, FivedayforecastComponent],
   templateUrl: './currentweather.component.html',
   styleUrl: './currentweather.component.scss',
 })
@@ -26,21 +16,21 @@ export class CurrentweatherComponent implements OnInit {
   private http = inject(HttpClient);
   weatherService = inject(WeatherserviceService);
 
-  erroService = inject(ErrorserviceService);
-  locationService = inject(LocationserviceService);
-
-  @ViewChild('errorPopup') errorPopup!: ErrorpopupComponent;
-
   weather: any;
   city: string = 'hyderabad';
   selectedCity: string = 'hyderabad'; // City passed to the forecast component
   showForecastComponent = false;
 
-  latitude: number | null = null;
-  longitude: number | null = null;
+  bookmarks: string[] = [];
 
-  errorMessage: string | null = null;
-  location: { latitude: number; longitude: number } | null = null;
+  isCityBookmarked: boolean = false;
+
+  bookmark_img: string = '';
+
+  bookmarknot_img = 'images/bookmark.png';
+  bookmarked_img = 'images/bookmarked.png';
+
+  @Output() data = new EventEmitter<string>();
 
   weatherData = [
     { city: 'New York', description: 'Sunny', temperature: 28 },
@@ -50,16 +40,44 @@ export class CurrentweatherComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWeather();
-    this.erroService.error$.subscribe((message) => {
-      this.errorPopup.showError(message);
-    });
+    this.bookmarks = this.weatherService.getBookmarks();
+    if (this.bookmarks.length > 0) {
+      this.city = this.bookmarks[0]; // Set the first city as default
+      this.getWeather(); // Fetch weather for the default city
+    }
+    this.bookMarkIconChange();
   }
 
   getWeather() {
     this.weatherService
       .getWeatherReport(this.city)
       .subscribe((data: any) => (this.weather = data));
+      this.selectedCity=this.city;
     this.showForecast();
+    this.data.emit(this.selectedCity);
+    this.bookMarkIconChange();
+
+    console.log("selected city :"+this.selectedCity+ " / "+ this.city);
+
+  }
+
+  getBookMarks() {
+    this.bookmarks = this.weatherService.getBookmarks();
+  }
+
+  toggleBookmark() {
+    this.weatherService.toggleBookmark(this.city);
+    this.getBookMarks();
+    this.bookMarkIconChange();
+  }
+
+  bookMarkIconChange() {
+    this.isCityBookmarked = this.weatherService.isBookmarked(this.city);
+    if (this.isCityBookmarked) {
+      this.bookmark_img = this.bookmarknot_img;
+    } else {
+      this.bookmark_img = this.bookmarked_img;
+    }
   }
 
   showForecast() {
@@ -67,31 +85,15 @@ export class CurrentweatherComponent implements OnInit {
     this.showForecastComponent = true;
   }
 
-  getLocation(): void {
-    this.locationService.getLocation().then(
-      (position) => {
-        this.latitude = position.latitude;
-        this.longitude = position.longitude;
-        this.errorMessage = null; // Clear any errors
-        console.log('latitude : ' + this.latitude);
-      },
-      (error) => {
-        this.errorMessage = error;
-      }
-    );
-  }
+  selectBookmark(event: Event) {
+    const selectedCity = (event.target as HTMLSelectElement).value;
+    if (selectedCity) {
+      this.city = selectedCity;
+      this.getWeather();
+    }
 
-  getWeatherCurrentLocation() {
-    const lat = 37.7749; // Replace with dynamic latitude
-    const lon = -122.4194; // Replace with dynamic longitude
-
-    this.weatherService.getWeatherByCoordinates(lat, lon).subscribe({
-      next: (data) => {
-        this.weather = data;
-      },
-      error: (err) => {
-        this.errorMessage = `Failed to fetch weather: ${err.message}`;
-      },
-    });
+    // For debugging purposes
+    console.log('Selected City:', selectedCity);
+    console.log('Current Bookmarks:', this.bookmarks);
   }
 }

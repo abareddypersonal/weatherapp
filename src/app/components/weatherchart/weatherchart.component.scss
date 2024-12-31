@@ -1,0 +1,17 @@
+.chart-container {
+  height: 400px;
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.chart-container h1 {
+  width: 100%;
+  text-align: center;
+  // border: 2px solid green;
+}
+.barchart {
+  width: 500px;
+}

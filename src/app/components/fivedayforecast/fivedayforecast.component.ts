@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Chart, ChartConfiguration, ChartItem, registerables } from 'chart.js';
-// import { Chart } from 'chart.js/auto';
 import { WeatherserviceService } from '../../services/weatherservice.service';
 
 Chart.register(...registerables); // Register necessary Chart.js components
@@ -34,7 +33,7 @@ export class FivedayforecastComponent implements OnInit ,OnChanges{
         const labels: string[] = [];
         const temps: number[] = [];
 
-        console.log('data :' + data);
+      // console.log('data :' + data);
 
         data.list.forEach((entry: any, index: number) => {
           if (index % 8 === 0) {

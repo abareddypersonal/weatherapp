@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="currentWeatherCard">
+    <app-currentweather (data)="handleDataFromChild($event)"></app-currentweather>
+  </div>
+  <div class="locationsights">   
+    <app-locationinsights [city]="selectedCity" ></app-locationinsights>
+  </div>
+  <div class="windspeed">
+    <app-weatherchart [city]="selectedCity"></app-weatherchart>
+  </div>
+</div>
+
+
+
+<app-errorpopup #errorPopup></app-errorpopup>

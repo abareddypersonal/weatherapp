@@ -1,41 +1,36 @@
 <div class="weathercurrent">
-  <div class="currentleft">
-    <div class="currentweathercard">
-      <!-- <h2>Current Weather</h2> -->
-      <div class="searchcity">
-        <input [(ngModel)]="city" placeholder="Enter city" class="input-box"/>
-        <button (click)="getWeather()" class="search-button">Get Weather</button>
-      </div>
-     
-      <div class="temp" *ngIf="weather">
-        <h3>{{ weather.name }}</h3>
+  <div class="searchcity">
+    <input [(ngModel)]="city" placeholder="Enter city" class="input-box" />
+    <button (click)="getWeather()" class="search-button">Get Weather</button>
+    <div>
+  <select *ngIf="bookmarks.length > 0" [(ngModel)]="city" class="bookmarks" (change)="selectBookmark($event)">
+    <option *ngFor="let city of bookmarks" [value]="city">{{ city }}</option>
+  </select>
+  
+</div>
+  </div>
+  <div class="currentWeather">
+    <div class="weather-card">
+      <div  *ngIf="weather">
+        <h3 class="name">{{ weather.name }}</h3>
+       <button class="bookmarked" (click)="toggleBookmark()">
+        <img  [src]="bookmark_img" alt="bookmarked">
+       </button>
         <div class="tempicon">
-          <img src="images/temp.png" alt="temperature Icon">
-          <div class="temperature"> {{ weather.main.temp }} °C</div>
-        </div> 
+          <img src="images/temp.png" alt="temperature Icon" />
+          <div class="temperature">{{ weather.main.temp }} °C</div>
+        </div>
         <div class="weathericon">
-          <img src="images/weather.png" alt="Weather Icon">
+          <img src="images/weather.png" alt="Weather Icon" />
           <div>{{ weather.weather[0].description }}</div>
         </div>
-        
       </div>
     </div>
-    <!-- <div class="currentlocationcard">
-      <h2>Get Current Location</h2>
-      <button (click)="getWeatherCurrentLocation()">Get Location</button>
-      <p *ngIf="latitude && longitude">Latitude: {{ latitude }}</p>
-      <p *ngIf="latitude && longitude">Longitude: {{ longitude }}</p>
-      <p *ngIf="errorMessage" style="color: red">Error: {{ errorMessage }}</p>
-    </div> -->
-  </div>
-<div class="line"></div>
-  <div class="weather-chart">
-    <!-- <h1>weather weather-chart</h1> -->
-    <app-fivedayforecast [city]="selectedCity" *ngIf="showForecastComponent"></app-fivedayforecast>
+    <div class="weather-chart">
+      <app-fivedayforecast
+        [city]="selectedCity"
+        *ngIf="showForecastComponent"
+      ></app-fivedayforecast>
+    </div>
   </div>
 </div>
-
-<app-locationinsights></app-locationinsights>
-
-<!-- <img src="images/dark.png" alt=""> -->
-<app-errorpopup #errorPopup></app-errorpopup>
