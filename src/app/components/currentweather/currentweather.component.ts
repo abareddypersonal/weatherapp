@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WeatherserviceService } from '../../services/weatherservice.service';
@@ -15,7 +14,6 @@ import { ErrorserviceService } from '../../services/errorservice.service';
   styleUrl: './currentweather.component.scss',
 })
 export class CurrentweatherComponent implements OnInit {
-  private http = inject(HttpClient);
   weatherService = inject(WeatherserviceService);
   locationService = inject(LocationserviceService);
   erroService = inject(ErrorserviceService);

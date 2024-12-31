@@ -30,7 +30,6 @@ export class AppComponent {
   currentIcon: string;
 
   constructor() {
-    // Set the initial icon
     this.currentIcon = this.firstIcon;
   }
 

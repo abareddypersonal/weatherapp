@@ -37,8 +37,6 @@ export class WeatherchartComponent implements OnChanges {
   getWeatherData() {
     this.weatherService.getFiveDayForecast(this.city).subscribe({
       next: (data) => {
-
-        // Clear previous chart data before processing new data
         this.labelData = [];
         this.realData = [];
 

@@ -41,15 +41,11 @@ export class FivedayforecastComponent implements OnInit, OnChanges {
         const labels: string[] = [];
         const temps: number[] = [];
 
-        // console.log('data :' + data);
-
         data.list.forEach((entry: any, index: number) => {
           if (index % 8 === 0) {
-            // const date = new Date(entry.dt_txt);
-            // labels.push(entry.dt_txt.split(' ')[0]); // Extract date
             const date = new Date(entry.dt_txt);
-            labels.push(date.getDate().toString()); // Get day as number
-            temps.push(entry.main.temp); // Extract temperature
+            labels.push(date.getDate().toString()); 
+            temps.push(entry.main.temp);
           }
         });
 
