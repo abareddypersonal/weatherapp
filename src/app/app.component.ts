@@ -1,12 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CurrentweatherComponent } from './components/currentweather/currentweather.component';
 import { TheamserviceService } from './services/theamservice.service';
 import { CommonModule } from '@angular/common';
-import { TestComponent } from './components/testcomponents/test/test.component';
-import { GridComponent } from './components/testcomponents/grid/grid.component';
-import { Grid1Component } from './components/testcomponents/grid1/grid1.component';
-import { Grid2Component } from './components/testcomponents/grid2/grid2.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @Component({
