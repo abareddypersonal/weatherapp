@@ -22,7 +22,7 @@ export class LocationinsightsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes['city']);
     if (changes['city'] && changes['city'].currentValue) {
-      this.searchLocationNearby();
+     this.searchLocationNearby();
     }
   }
 

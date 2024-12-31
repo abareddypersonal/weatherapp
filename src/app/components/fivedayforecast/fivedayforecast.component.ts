@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Chart, ChartConfiguration, ChartItem, registerables } from 'chart.js';
 import { WeatherserviceService } from '../../services/weatherservice.service';
 
@@ -11,7 +19,7 @@ Chart.register(...registerables); // Register necessary Chart.js components
   templateUrl: './fivedayforecast.component.html',
   styleUrl: './fivedayforecast.component.scss',
 })
-export class FivedayforecastComponent implements OnInit ,OnChanges{
+export class FivedayforecastComponent implements OnInit, OnChanges {
   @Input() city!: string;
 
   private weatherService = inject(WeatherserviceService);
@@ -27,13 +35,13 @@ export class FivedayforecastComponent implements OnInit ,OnChanges{
     }
   }
 
-  getFiveDaysForecast():void {
+  getFiveDaysForecast(): void {
     if (this.city) {
       this.weatherService.getFiveDayForecast(this.city).subscribe((data) => {
         const labels: string[] = [];
         const temps: number[] = [];
 
-      // console.log('data :' + data);
+        // console.log('data :' + data);
 
         data.list.forEach((entry: any, index: number) => {
           if (index % 8 === 0) {

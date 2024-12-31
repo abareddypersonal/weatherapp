@@ -12,7 +12,7 @@
   <div class="currentWeather">
     <div class="weather-card">
       <div  *ngIf="weather">
-        <h3 class="name">{{ weather.name }}</h3>
+        <h3 class="name">{{ city }}</h3>
        <button class="bookmarked" (click)="toggleBookmark()">
         <img  [src]="bookmark_img" alt="bookmarked">
        </button>

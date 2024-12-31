@@ -29,15 +29,15 @@ export class WeatherchartComponent implements OnChanges {
   private chart: Chart | undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['city']) {
-      this.getWeatherDataNew();
+    if (changes['city'] && changes['city'].currentValue) {
+      this.getWeatherData();
     }
   }
 
-  getWeatherDataNew() {
+  getWeatherData() {
     this.weatherService.getFiveDayForecast(this.city).subscribe({
       next: (data) => {
-        
+
         // Clear previous chart data before processing new data
         this.labelData = [];
         this.realData = [];
